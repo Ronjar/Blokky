@@ -1,0 +1,1 @@
+adb shell settings put secure enabled_accessibility_services com.robingebert.blokky/.feature_accessibility.ReelsBlockAccessibilityService
