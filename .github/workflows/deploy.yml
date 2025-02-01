@@ -1,20 +1,33 @@
-name: Build and Deploy
+name: Build Signed APK
+
+permissions:
+  contents: write
 on:
   push:
     branches:
-      - main  # Insert your main branch name here (default: main)
+      - main
+    tags: 
+      - 'v*.*.*'
   workflow_dispatch:
 jobs:
   build:
     name: Build Signed APK
     runs-on: ubuntu-latest
     steps:
-    - name: Check files
-      shell: bash
-      run: ls -al
-    - uses: victorbnl/build-signed-apk@main
-      with:
-        keystore_b64: ${{ secrets.KEYSTORE }}
-        keystore_password: ${{ secrets.KEYSTORE_PASSWORD }}
-        key_alias: ${{ secrets.KEY_ALIAS }}
-        key_password: ${{ secrets.KEY_PASSWORD }}
+      - uses: actions/checkout@v3
+      - run: echo $GITHUB_REF
+      - uses: victorbnl/build-signed-apk@main
+        with:
+          keystore_b64: ${{ secrets.KEYSTORE }}
+          keystore_password: ${{ secrets.KEYSTORE_PASSWORD }}
+          key_alias: ${{ secrets.KEY_ALIAS }}
+          key_password: ${{ secrets.KEY_PASSWORD }}
+  deploy:
+    name: Build Signed APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            app/build/outputs/apk/release/app-release.apk
