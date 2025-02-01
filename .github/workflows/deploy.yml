@@ -9,6 +9,9 @@ jobs:
     name: Build Signed APK
     runs-on: ubuntu-latest
     steps:
+    - name: Check files
+      shell: bash
+      run: ls -al
     - uses: victorbnl/build-signed-apk@main
       with:
         keystore_b64: ${{ secrets.KEYSTORE }}
