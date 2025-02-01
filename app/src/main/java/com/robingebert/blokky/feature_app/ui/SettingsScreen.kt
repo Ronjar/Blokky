@@ -8,7 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Warning
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -50,9 +55,6 @@ fun SettingsScreen() {
     val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsState()
 
     LaunchedEffect(lifecycleState) {
-        // Do something with your state
-        // You may want to use DisposableEffect or other alternatives
-        // instead of LaunchedEffect
         when (lifecycleState) {
             Lifecycle.State.DESTROYED -> {}
             Lifecycle.State.INITIALIZED -> {}
@@ -104,6 +106,7 @@ fun SettingsScreen() {
     }
 }
 
+
 fun Context.isAccessibilityGranted(): Boolean {
     val am = this.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
     val runningServices =
@@ -116,10 +119,10 @@ fun InstagramColoredIcon() {
     val gradientBrush = remember {
         Brush.linearGradient(
             colors = listOf(
-                Color(0xFFF58529), // Orange
-                Color(0xFFDD2A7B), // Pink
-                Color(0xFF8134AF), // Lila
-                Color(0xFF515BD4)  // Blau
+                Color(0xFFF58529),
+                Color(0xFFDD2A7B),
+                Color(0xFF8134AF),
+                Color(0xFF515BD4)
             )
         )
     }
@@ -127,7 +130,7 @@ fun InstagramColoredIcon() {
     Icon(
         painter = painterResource(R.drawable.ic_instagram),
         contentDescription = null,
-        tint = Color.Unspecified, // Deaktiviert Standard-Tint
+        tint = Color.Unspecified,
         modifier = Modifier
             .graphicsLayer(alpha = 0.99f)
             .drawWithCache {
