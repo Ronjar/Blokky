@@ -14,7 +14,6 @@ ossLicensesPlugin = "0.10.6"
 ossLicenses = "17.1.0"
 datastore = "1.1.2"
 navigationCompose = "2.8.6"
-core-splashscreen="1.0.1"
 coroutines = "1.8.1"
 lifecycle = "2.8.7"
 qrcode = "4.1.1"
@@ -48,7 +47,6 @@ ossLicenses = { module = "com.google.android.gms:play-services-oss-licenses", ve
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-datastore = {group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore"}
 androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastore" }
-core-splashscreen={group= "androidx.core",name="core-splashscreen",version.ref="core-splashscreen"}
 qrcode = { group = "io.github.g0dkar", name = "qrcode-kotlin", version.ref="qrcode"}
 
 [plugins]

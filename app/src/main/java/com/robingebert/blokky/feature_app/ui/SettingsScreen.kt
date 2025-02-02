@@ -110,7 +110,7 @@ fun SettingsScreen() {
 fun Context.isAccessibilityGranted(): Boolean {
     val am = this.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
     val runningServices =
-        am.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
+        am.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPE_VIEW_CLICKED)
     return runningServices.any { it.id == "com.robingebert.blokky/.feature_accessibility.ReelsBlockAccessibilityService" }
 }
 

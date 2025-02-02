@@ -64,7 +64,6 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.datastore.core.android)
     implementation(libs.ossLicenses)
-    implementation(libs.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)

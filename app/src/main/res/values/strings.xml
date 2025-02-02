@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Blokky</string>
+    <string name="accessibility_service_description">Blokky uses this permission to detect and navigate away from short videos</string>
 </resources>
