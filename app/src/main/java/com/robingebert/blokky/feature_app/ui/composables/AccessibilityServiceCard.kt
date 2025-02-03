@@ -152,7 +152,7 @@ fun AccessibilityServiceDialog(
                             Spacer(modifier = Modifier.height(4.dp))
                             Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth()) {
                                 TextButton(
-                                    onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/AboutAccessibilityServices"))) }
+                                    onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/sites/AboutAccessibilityServices"))) }
                                 ) {
                                     Text("Learn More", color = Color.Gray)
                                 }

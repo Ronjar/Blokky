@@ -48,7 +48,7 @@ import com.strabled.composepreferences.utilis.buildPreferences
 fun SettingsScreen() {
 
     val context = LocalContext.current
-    
+
     var isAccessibilityGranted by remember { mutableStateOf(false) }
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -79,15 +79,15 @@ fun SettingsScreen() {
             setPreferences(preferences)
 
             Column(verticalArrangement = spacedBy(8.dp)) {
-                    SwitchPreference(
-                        preference = getPreference("instagram_reels_blocked"),
-                        enabled = isAccessibilityGranted,
-                        title = "Instagram Reels",
-                        summary = "Block Instagram Reels",
-                        leadingIcon = {
-                            InstagramColoredIcon()
-                        }
-                    )
+                SwitchPreference(
+                    preference = getPreference("instagram_reels_blocked"),
+                    enabled = isAccessibilityGranted,
+                    title = "Instagram Reels",
+                    summary = "Block Instagram Reels",
+                    leadingIcon = {
+                        InstagramColoredIcon()
+                    }
+                )
                 SwitchPreference(
                     preference = getPreference("youtube_shorts_blocked"),
                     enabled = isAccessibilityGranted,
