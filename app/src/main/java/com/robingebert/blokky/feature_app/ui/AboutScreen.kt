@@ -33,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -169,10 +170,18 @@ fun AboutScreen() {
                 containerColor = MaterialTheme.colorScheme.surfaceContainer
             )
         ) {
-            Text(
-                text = "Regarding the Accessibility Warnings: This App uses the Accessibility Service only to block nasty reels. It doesn't even have the Internet Permission. If you have any questions regarding Data Safety, feel free to contact me or look through the source code.",
-                modifier = Modifier.padding(12.dp)
-            )
+            Column{
+                Text(
+                    text = "Regarding the Accessibility Warnings: This App uses the Accessibility Service only to block reels. It doesn't even have the Internet Permission, which would be required to share your data. If you have any questions regarding Data Safety, feel free to contact me or look through the source code.",
+                    modifier = Modifier.padding(12.dp)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                TextButton(
+                    onClick = {context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/AboutAccessibilityServices")))}
+                ) {
+                    Text(text = "Learn More")
+                }
+            }
         }
     }
 

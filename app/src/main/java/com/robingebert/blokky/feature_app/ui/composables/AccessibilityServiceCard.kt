@@ -1,6 +1,7 @@
 package com.robingebert.blokky.feature_app.ui.composables
 
 import android.content.Intent
+import android.net.Uri
 import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -133,7 +134,7 @@ fun AccessibilityServiceDialog(
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
-                modifier = Modifier.padding(24.dp).height(200.dp),
+                modifier = Modifier.padding(24.dp).height(250.dp),
             ) {
                 Text(text = "Accessibility Service", style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(4.dp))
@@ -145,15 +146,29 @@ fun AccessibilityServiceDialog(
                         Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.SpaceBetween) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = "In order to block reels, Accessibility Service needs to be enabled.\nI promise to only use it for this purpose.",
+                                text = "Blokky uses Accessibility Services in order to detect your activity (whether you opened Reels / Shorts) and to bring you back to the feed tab. I do not store any information about you or your activity, nor does this app control any applications beside exiting Reels / Shorts for you.",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                             Spacer(modifier = Modifier.height(4.dp))
-                            TextButton(
-                                onClick = { site = 1 }
-                            ) {
-                                Text("Show me how")
+                            Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth()) {
+                                TextButton(
+                                    onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/AboutAccessibilityServices"))) }
+                                ) {
+                                    Text("Learn More", color = Color.Gray)
+                                }
+                                Spacer(modifier = Modifier.weight(1f))
+                                TextButton(
+                                    onClick = { onDismissRequest() }
+                                ) {
+                                    Text("Decline")
+                                }
+                                TextButton(
+                                    onClick = { site = 1 }
+                                ) {
+                                    Text("Accept")
+                                }
                             }
+
                         }
 
                     }
