@@ -55,9 +55,15 @@ fun AccessibilityServiceCard(
     isAccessibilityGranted: Boolean
 ) {
     var showAccessibilityServiceDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     val update: (Boolean) -> Unit = {
-        showAccessibilityServiceDialog = true
+        if (isAccessibilityGranted) {
+            context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        }
+        else {
+            showAccessibilityServiceDialog = true
+        }
     }
 
     Card(
@@ -82,27 +88,23 @@ fun AccessibilityServiceCard(
         ) {
             Icon(
                 modifier = Modifier
-                    .size(32.dp)
-                    .padding(end = 4.dp),
+                    .size(32.dp),
                 imageVector = Icons.Rounded.Accessibility,
                 contentDescription = null
             )
+            Spacer(modifier = Modifier.width(12.dp))
             Column(verticalArrangement = Arrangement.Center, modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Accessibility Service (" + if (!isAccessibilityGranted) {
-                        "Not"
-                    } else {
-                        ""
-                    } + "Granted)",
+                    text = "Accessibility Service",
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text(
                     text = if (isAccessibilityGranted) {
-                        "Accessibility Service is needed to monitor activity in Apps. Click here to view Settings."
+                        "Granted. Click here to view Settings."
                     } else {
-                        "Accessibility Service is needed to monitor activity in Apps. Click here to grant it."
+                        "Not granted. Click here to grant it."
                     },
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
             Switch(
@@ -134,7 +136,7 @@ fun AccessibilityServiceDialog(
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
-                modifier = Modifier.padding(24.dp).height(250.dp),
+                modifier = Modifier.padding(24.dp),
             ) {
                 Text(text = "Accessibility Service", style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(4.dp))
@@ -143,7 +145,7 @@ fun AccessibilityServiceDialog(
                         site == 0,
                         exit = slideOutHorizontally() + fadeOut()
                     ) {
-                        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.SpaceBetween) {
+                        Column(horizontalAlignment = Alignment.End) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = "Blokky uses Accessibility Services in order to detect your activity (whether you opened Reels / Shorts) and to bring you back to the feed tab. I do not store any information about you or your activity, nor does this app control any applications beside exiting Reels / Shorts for you.",
@@ -152,7 +154,7 @@ fun AccessibilityServiceDialog(
                             Spacer(modifier = Modifier.height(4.dp))
                             Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth()) {
                                 TextButton(
-                                    onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/AboutAccessibilityServices"))) }
+                                    onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/sites/AboutAccessibilityServices"))) }
                                 ) {
                                     Text("Learn More", color = Color.Gray)
                                 }
@@ -180,7 +182,7 @@ fun AccessibilityServiceDialog(
                             initialAlpha = 0.3f
                         ),
                     ) {
-                        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
+                        Column {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = "After you opened accessibility settings, click on \"Blokky\" in the \"Downloaded Apps\" Tab. Then click the slider to enable/disable the service.",

@@ -68,7 +68,7 @@ fun AboutScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp)
+            .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Card(
@@ -170,14 +170,13 @@ fun AboutScreen() {
                 containerColor = MaterialTheme.colorScheme.surfaceContainer
             )
         ) {
-            Column{
+            Column (modifier = Modifier.padding(12.dp)){
                 Text(
                     text = "Regarding the Accessibility Warnings: This App uses the Accessibility Service only to block reels. It doesn't even have the Internet Permission, which would be required to share your data. If you have any questions regarding Data Safety, feel free to contact me or look through the source code.",
-                    modifier = Modifier.padding(12.dp)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 TextButton(
-                    onClick = {context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/AboutAccessibilityServices")))}
+                    onClick = {context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/sites/AboutAccessibilityServices")))}
                 ) {
                     Text(text = "Learn More")
                 }
