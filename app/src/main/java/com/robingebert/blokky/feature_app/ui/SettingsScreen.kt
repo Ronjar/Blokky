@@ -69,6 +69,7 @@ fun SettingsScreen() {
             val preferences = buildPreferences(LocalDataStoreManager.current) {
                 "instagram_reels_blocked" defaultValue true
                 "youtube_shorts_blocked" defaultValue true
+                "tiktok_blocked" defaultValue true
             }
 
             setPreferences(preferences)
@@ -93,6 +94,19 @@ fun SettingsScreen() {
                             painterResource(R.drawable.ic_youtube),
                             null,
                             tint = Color.Red
+                        )
+                    }
+                )
+                SwitchPreference(
+                    preference = getPreference("tiktok_blocked"),
+                    enabled = isAccessibilityGranted,
+                    title = "TikTok",
+                    summary = "Block TikTok (whole app)",
+                    leadingIcon = {
+                        Icon(
+                            painterResource(R.drawable.ic_tiktok),
+                            null,
+                            tint= Color.Unspecified
                         )
                     }
                 )
