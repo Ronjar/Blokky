@@ -27,7 +27,7 @@ jobs:
           name: build-output
           path: app/build/outputs/apk/release/app-release.apk
   deploy:
-    name: Build Signed APK
+    name: Deploy APK
     needs: build
     runs-on: ubuntu-latest
     steps:
