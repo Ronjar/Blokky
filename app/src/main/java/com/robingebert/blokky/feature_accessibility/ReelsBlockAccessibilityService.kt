@@ -2,10 +2,8 @@ package com.robingebert.blokky.feature_accessibility
 
 import android.accessibilityservice.AccessibilityService
 import android.content.Context
-import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -15,7 +13,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
 
 class ReelsBlockAccessibilityService : AccessibilityService() {
 
@@ -46,7 +43,7 @@ class ReelsBlockAccessibilityService : AccessibilityService() {
                                     val feedButton =
                                         rootNode.findAccessibilityNodeInfosByViewId("com.instagram.android:id/feed_tab")
                                             .firstOrNull()
-                                    feedButton?.exitTheDoom()
+                                    feedButton.exitTheDoom()
 
                                 }
                             }
@@ -71,6 +68,14 @@ class ReelsBlockAccessibilityService : AccessibilityService() {
                             }
                         }
                 }
+                "com.zhiliaoapp.musically" -> {
+                    dataStore.data.map { it[stringPreferencesKey("tiktok_blocked")] }
+                        .collectLatest {
+                            if (it == null || it.toBoolean() != false) {
+                                performGlobalAction(GLOBAL_ACTION_HOME)
+                            }
+                        }
+                }
 
                 else -> hasExitedTheDoom = false
             }
@@ -81,10 +86,14 @@ class ReelsBlockAccessibilityService : AccessibilityService() {
         // Wird benötigt, aber hier nicht genutzt
     }
 
-    suspend fun AccessibilityNodeInfo.exitTheDoom() {
+    suspend fun AccessibilityNodeInfo?.exitTheDoom() {
         if (!hasExitedTheDoom) {
             hasExitedTheDoom = true
-            this.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+            this?.let {
+                this.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+            } ?: run {
+                performGlobalAction(GLOBAL_ACTION_BACK)
+            }
             delay(500)
             hasExitedTheDoom = false
         }
