@@ -4,8 +4,8 @@ import android.accessibilityservice.AccessibilityService
 import android.content.Context
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+//import androidx.datastore.preferences.core.stringPreferencesKey
+//import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class ReelsBlockAccessibilityService : AccessibilityService() {
 
     companion object {
-        val Context.dataStore by preferencesDataStore(name = "preferences")
+//        val Context.dataStore by preferencesDataStore(name = "preferences")
     }
 
     var hasExitedTheDoom = false
@@ -26,7 +26,7 @@ class ReelsBlockAccessibilityService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         event ?: return
 
-        val dataStore = applicationContext.dataStore
+/*        val dataStore = applicationContext.dataStore
         val rootNode = rootInActiveWindow ?: return
 
         GlobalScope.launch(Dispatchers.IO) {
@@ -79,7 +79,7 @@ class ReelsBlockAccessibilityService : AccessibilityService() {
 
                 else -> hasExitedTheDoom = false
             }
-        }
+        }*/
     }
 
     override fun onInterrupt() {

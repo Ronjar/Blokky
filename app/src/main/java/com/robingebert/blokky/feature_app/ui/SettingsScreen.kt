@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,8 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.robingebert.blokky.R
-import com.robingebert.blokky.feature_accessibility.ReelsBlockAccessibilityService.Companion.dataStore
+//import com.robingebert.blokky.feature_accessibility.ReelsBlockAccessibilityService.Companion.dataStore
 import com.robingebert.blokky.feature_app.ui.composables.AccessibilityServiceCard
+import com.robingebert.blokky.feature_app.ui.composables.InstagramColoredIcon
 import com.robingebert.blokky.feature_app.ui.composables.SwitchPreference
 import com.strabled.composepreferences.LocalDataStoreManager
 import com.strabled.composepreferences.ProvideDataStoreManager
@@ -43,7 +47,9 @@ import com.strabled.composepreferences.utilis.buildPreferences
 fun SettingsScreen() {
 
     val context = LocalContext.current
-    
+
+
+    //region Accessibility Service
     var isAccessibilityGranted by remember { mutableStateOf(false) }
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -60,12 +66,17 @@ fun SettingsScreen() {
             }
         }
     }
+    //endregion
+
+
+
+
     Column(modifier = Modifier.padding(8.dp)) {
 
         AccessibilityServiceCard(isAccessibilityGranted)
         Spacer(modifier = Modifier.height(12.dp))
 
-        ProvideDataStoreManager(dataStoreManager = DataStoreManager(context, context.dataStore)) {
+        ProvideDataStoreManager() {
             val preferences = buildPreferences(LocalDataStoreManager.current) {
                 "instagram_reels_blocked" defaultValue true
                 "youtube_shorts_blocked" defaultValue true
@@ -82,7 +93,20 @@ fun SettingsScreen() {
                         summary = "Block Instagram Reels",
                         leadingIcon = {
                             InstagramColoredIcon()
-                        }
+                        },
+                        settingsIcon = {
+                            IconButton(
+                                onClick = {
+
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Settings,
+                                    contentDescription = "Settings for Instagram",
+                                )
+                            }
+
+                        },
                     )
                 SwitchPreference(
                     preference = getPreference("youtube_shorts_blocked"),
@@ -121,34 +145,6 @@ fun Context.isAccessibilityGranted(): Boolean {
     val runningServices =
         am.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPE_VIEW_CLICKED)
     return runningServices.any { it.id == "com.robingebert.blokky/.feature_accessibility.ReelsBlockAccessibilityService" }
-}
-
-@Composable
-fun InstagramColoredIcon() {
-    val gradientBrush = remember {
-        Brush.linearGradient(
-            colors = listOf(
-                Color(0xFFF58529),
-                Color(0xFFDD2A7B),
-                Color(0xFF8134AF),
-                Color(0xFF515BD4)
-            )
-        )
-    }
-
-    Icon(
-        painter = painterResource(R.drawable.ic_instagram),
-        contentDescription = null,
-        tint = Color.Unspecified,
-        modifier = Modifier
-            .graphicsLayer(alpha = 0.99f)
-            .drawWithCache {
-                onDrawWithContent {
-                    drawContent()
-                    drawRect(gradientBrush, blendMode = BlendMode.SrcAtop)
-                }
-            }
-    )
 }
 
 @Preview

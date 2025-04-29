@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.idea.proto.com.google.protobuf.option
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.protobuf)
     id("com.google.android.gms.oss-licenses-plugin")
 }
 
@@ -13,8 +16,8 @@ android {
         applicationId = "com.robingebert.blokky"
         minSdk = 29
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.0.2"
+        versionCode = 5
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,6 +43,22 @@ android {
     }
 }
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.8.0"
+    }
+    generateProtoTasks {
+        all().configureEach { task ->
+            task.builtins {
+                java {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -59,10 +78,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 
+    implementation(libs.protobuf.javalite)
     implementation(libs.androidx.icons.extended)
     implementation(libs.compose.preferences)
     implementation(libs.androidx.datastore)
-    implementation(libs.androidx.datastore.core.android)
+    //implementation(libs.androidx.datastore.core.android)
     implementation(libs.ossLicenses)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.coroutines.core)

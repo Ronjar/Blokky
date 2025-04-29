@@ -1,0 +1,33 @@
+
+syntax = "proto3";
+option java_package = "com.robingebert.blokky";
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+
+message ContentBlockers {
+  InstagramBlocker instagram_blocker = 1;
+  YoutubeBlocker youtube_blocker = 2;
+  TikTokBlocker tiktok_blocker = 3;
+}
+
+message InstagramBlocker {
+  bool blocked = 1;
+  google.protobuf.Timestamp blocked_start = 2;
+  google.protobuf.Timestamp blocked_end = 3;
+  int32 blocked_timer = 4;
+}
+
+message YoutubeBlocker {
+  bool blocked = 1;
+  google.protobuf.Timestamp blocked_start = 2;
+  google.protobuf.Timestamp blocked_end = 3;
+  int32 blocked_timer = 4;
+}
+
+message TikTokBlocker {
+  bool blocked = 1;
+  google.protobuf.Timestamp blocked_start = 2;
+  google.protobuf.Timestamp blocked_end = 3;
+  int32 blocked_timer = 4;
+}

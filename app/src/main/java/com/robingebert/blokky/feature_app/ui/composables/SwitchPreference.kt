@@ -38,7 +38,8 @@ fun SwitchPreference(
     summary: String,
     enabled: Boolean = true,
     leadingIcon: @Composable (() -> Unit),
-    onValueChange: (Boolean) -> Unit = {}
+    onValueChange: (Boolean) -> Unit = {},
+    settingsIcon: @Composable (() -> Unit)? = null,
 ) {
     val preferenceValue by preference.collectState()
 
@@ -88,6 +89,7 @@ fun SwitchPreference(
                 onCheckedChange = { edit(it) },
                 enabled = enabled
             )
+            settingsIcon?.invoke()
         }
     }
 

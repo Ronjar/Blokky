@@ -1,20 +1,22 @@
 [versions]
-agp = "8.8.0"
-kotlin = "2.0.0"
-coreKtx = "1.15.0"
+agp = "8.9.2"
+kotlin = "2.0.21"
+protobuf = "0.9.5"
+protobuf-javalite = "4.30.2"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.10.0"
-composeBom = "2025.01.01"
-material-icons-extended = "1.7.6"
+activityCompose = "1.10.1"
+composeBom = "2025.04.01"
+material-icons-extended = "1.7.8"
 composePreferences = "1.0.2"
 ossLicensesPlugin = "0.10.6"
 ossLicenses = "17.1.0"
-datastore = "1.1.2"
-navigationCompose = "2.8.6"
-coroutines = "1.8.1"
+datastore = "1.1.5"
+navigationCompose = "2.8.9"
+coroutines = "1.10.1"
 lifecycle = "2.8.7"
 qrcode = "4.1.1"
 
@@ -41,16 +43,18 @@ androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle
 androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle" }
 
 
-androidx-icons-extended = { group = "androidx.compose.material", name="material-icons-extended"}
+androidx-icons-extended = { group = "androidx.compose.material", name="material-icons-extended", version.ref = "material-icons-extended"}
 ossLicensesPlugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
 ossLicenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "ossLicenses" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-androidx-datastore = {group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore"}
-androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastore" }
+androidx-datastore = {group = "androidx.datastore", name = "datastore", version.ref = "datastore"}
+protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobuf-javalite" }
+#androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastore" }
 qrcode = { group = "io.github.g0dkar", name = "qrcode-kotlin", version.ref="qrcode"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
 
