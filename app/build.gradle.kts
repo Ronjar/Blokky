@@ -1,11 +1,10 @@
-import org.jetbrains.kotlin.gradle.idea.proto.com.google.protobuf.option
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.protobuf)
     id("com.google.android.gms.oss-licenses-plugin")
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 android {
@@ -14,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.robingebert.blokky"
-        minSdk = 29
+        minSdk = 28
         targetSdk = 35
         versionCode = 5
         versionName = "1.1.0"
@@ -43,21 +42,6 @@ android {
     }
 }
 
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.8.0"
-    }
-    generateProtoTasks {
-        all().configureEach { task ->
-            task.builtins {
-                java {
-                    option("lite")
-                }
-            }
-        }
-    }
-}
-
 
 dependencies {
 
@@ -77,7 +61,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.koin.androidx.compose)
     implementation(libs.protobuf.javalite)
     implementation(libs.androidx.icons.extended)
     implementation(libs.compose.preferences)

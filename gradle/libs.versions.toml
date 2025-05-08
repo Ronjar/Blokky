@@ -1,23 +1,25 @@
 [versions]
 agp = "8.9.2"
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 protobuf = "0.9.5"
 protobuf-javalite = "4.30.2"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
+kotlinxSerializationJson = "1.8.0"
+koin = "4.0.0"
 activityCompose = "1.10.1"
-composeBom = "2025.04.01"
+composeBom = "2025.05.00"
 material-icons-extended = "1.7.8"
 composePreferences = "1.0.2"
 ossLicensesPlugin = "0.10.6"
 ossLicenses = "17.1.0"
-datastore = "1.1.5"
-navigationCompose = "2.8.9"
+datastore = "1.1.6"
+navigationCompose = "2.9.0"
 coroutines = "1.10.1"
-lifecycle = "2.8.7"
+lifecycle = "2.9.0"
 qrcode = "4.1.1"
 
 [libraries]
@@ -42,7 +44,8 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
 androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle" }
 
-
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 androidx-icons-extended = { group = "androidx.compose.material", name="material-icons-extended", version.ref = "material-icons-extended"}
 ossLicensesPlugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
 ossLicenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "ossLicenses" }

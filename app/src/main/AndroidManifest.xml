@@ -8,6 +8,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/ic_policy"
         android:label="@string/app_name"
+        android:name=".application.MainApplication"
         android:roundIcon="@drawable/ic_policy"
         android:supportsRtl="true"
         android:theme="@style/Theme.Blokky"
