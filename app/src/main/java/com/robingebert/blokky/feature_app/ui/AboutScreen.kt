@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -51,12 +50,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 import com.robingebert.blokky.R
 import qrcode.QRCode
 import java.io.ByteArrayOutputStream
+import androidx.core.net.toUri
 
 @Composable
 fun AboutScreen() {
@@ -121,7 +122,7 @@ fun AboutScreen() {
                 title = "Report Bug"
             ) {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:")
+                    data = "mailto:".toUri()
                     putExtra(Intent.EXTRA_EMAIL, arrayOf("blokky@robingebert.com"))
                     putExtra(Intent.EXTRA_SUBJECT, "Blokky Bug Report")
                 }
@@ -140,7 +141,7 @@ fun AboutScreen() {
                 title = "Website"
             ) {
                 val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com"))
+                    Intent(Intent.ACTION_VIEW, "https://blokky.robingebert.com".toUri())
                 context.startActivity(browserIntent)
             }
             HeroCard(
@@ -148,7 +149,7 @@ fun AboutScreen() {
                 title = "Code"
             ) {
                 val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ronjar/blokky"))
+                    Intent(Intent.ACTION_VIEW, "https://github.com/ronjar/blokky".toUri())
                 context.startActivity(browserIntent)
             }
         }
@@ -176,7 +177,8 @@ fun AboutScreen() {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 TextButton(
-                    onClick = {context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://blokky.robingebert.com/sites/AboutAccessibilityServices")))}
+                    onClick = {context.startActivity(Intent(Intent.ACTION_VIEW,
+                        "https://blokky.robingebert.com/sites/AboutAccessibilityServices".toUri()))}
                 ) {
                     Text(text = "Learn More")
                 }
@@ -225,9 +227,11 @@ fun QrCodeDialog(
     onDismissRequest: () -> Unit
 ) {
     val context = LocalContext.current
-    val logoBitmap = context.resources.getDrawable(R.drawable.ic_policy, context.theme).toBitmap()
+    val logoBitmap =
+        ResourcesCompat.getDrawable(context.resources, R.drawable.ic_policy, context.theme)
+            ?.toBitmap()
     val stream = ByteArrayOutputStream()
-    logoBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    logoBitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
     val logoQRCode = QRCode.ofRoundedSquares()
         .withBackgroundColor(android.graphics.Color.TRANSPARENT)
         .withColor(if (isSystemInDarkTheme()) android.graphics.Color.WHITE else android.graphics.Color.BLACK)
