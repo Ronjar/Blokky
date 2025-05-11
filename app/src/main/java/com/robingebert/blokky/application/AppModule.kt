@@ -1,6 +1,7 @@
 package com.robingebert.blokky.application
 
 import com.robingebert.blokky.datastore.DataStoreManager
+import com.robingebert.blokky.feature_app.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -10,7 +11,7 @@ object AppModule {
 }
 
 val viewModelModule = module {
-    viewModel { LauncherViewModel(dataStoreManager = get(), snackbarController = get()) }
+    viewModel { SettingsViewModel(dataStoreManager = get()) }
 }
 
 val commonModule = module {

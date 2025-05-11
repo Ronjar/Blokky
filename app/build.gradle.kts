@@ -15,8 +15,8 @@ android {
         applicationId = "com.robingebert.blokky"
         minSdk = 28
         targetSdk = 35
-        versionCode = 5
-        versionName = "1.1.0"
+        versionCode = 6
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,6 +62,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
     implementation(libs.koin.androidx.compose)
     implementation(libs.protobuf.javalite)
     implementation(libs.androidx.icons.extended)

@@ -21,17 +21,17 @@ class SettingsViewModel(private val dataStoreManager: DataStoreManager) : ViewMo
 
     fun updateInstagram(app: App) {
         viewModelScope.launch {
-            dataStoreManager.updateInstagram(app)
+            dataStoreManager.update(appSettings.value.copy(instagram = app))
         }
     }
     fun updateTikTok(app: App) {
         viewModelScope.launch {
-            dataStoreManager.updateTikTok(app)
+            dataStoreManager.update(appSettings.value.copy(tiktok = app))
         }
     }
     fun updateYoutube(app: App) {
         viewModelScope.launch {
-            dataStoreManager.updateYoutube(app)
+            dataStoreManager.update(appSettings.value.copy(youtube = app))
         }
     }
 }

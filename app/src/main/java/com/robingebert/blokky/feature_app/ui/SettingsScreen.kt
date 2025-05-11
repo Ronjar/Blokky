@@ -1,6 +1,5 @@
 package com.robingebert.blokky.feature_app.ui
 
-//import com.robingebert.blokky.feature_accessibility.ReelsBlockAccessibilityService.Companion.dataStore
 import android.content.Context
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
@@ -11,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -29,18 +29,24 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.robingebert.blokky.R
+import com.robingebert.blokky.datastore.DataStoreManager
 import com.robingebert.blokky.feature_app.SettingsViewModel
 import com.robingebert.blokky.feature_app.ui.composables.AccessibilityServiceCard
+import com.robingebert.blokky.feature_app.ui.composables.EditAppBottomSheet
 import com.robingebert.blokky.feature_app.ui.composables.InstagramColoredIcon
 import com.robingebert.blokky.feature_app.ui.composables.SwitchPreference
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
 
     val context = LocalContext.current
 
     val appSettings by settingsViewModel.appSettings.collectAsState()
+
+    var selectedApp by remember { mutableStateOf(appSettings.instagram) }
+    var showSettingsDialog by remember { mutableStateOf(false) }
 
 
     //region Accessibility Service
@@ -79,8 +85,10 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
                 },
                 settingsIcon = {
                     IconButton(
+                        modifier = it,
                         onClick = {
-
+                            selectedApp = appSettings.instagram
+                            showSettingsDialog = true
                         }
                     ) {
                         Icon(
@@ -108,6 +116,17 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
                         null,
                         tint = Color.Red
                     )
+                },
+                settingsIcon = {
+                    IconButton(
+                        modifier = it,
+                        onClick = {
+                            selectedApp = appSettings.youtube
+                            showSettingsDialog = true
+                        }
+                    ) {
+                        Icon(imageVector = Icons.Rounded.Settings, contentDescription = "Settings for YouTube")
+                    }
                 }
             ) {
                 settingsViewModel.updateYoutube(
@@ -127,6 +146,17 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
                         null,
                         tint = Color.Unspecified
                     )
+                },
+                settingsIcon = {
+                    IconButton(
+                        modifier = it,
+                        onClick = {
+                            selectedApp = appSettings.tiktok
+                            showSettingsDialog = true
+                        }
+                    ) {
+                        Icon(imageVector = Icons.Rounded.Settings, contentDescription = "Settings for TikTok")
+                    }
                 }
             ){
                 settingsViewModel.updateTikTok(
@@ -136,6 +166,22 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
                 )
             }
         }
+    }
+
+    if (showSettingsDialog) {
+        EditAppBottomSheet(
+            onDismiss = { showSettingsDialog = false },
+            app = selectedApp,
+            onSave = {
+                when (it.name) {
+                    appSettings.instagram.name -> settingsViewModel.updateInstagram(it)
+                    appSettings.youtube.name -> settingsViewModel.updateYoutube(it)
+                    appSettings.tiktok.name -> settingsViewModel.updateTikTok(it)
+                }
+                showSettingsDialog = false
+                // Handle confirm action
+            }
+        )
     }
 }
 

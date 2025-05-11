@@ -4,15 +4,22 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Numbers
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -31,7 +39,7 @@ fun SwitchPreference(
     summary: String,
     enabled: Boolean = true,
     leadingIcon: @Composable (() -> Unit),
-    settingsIcon: @Composable (() -> Unit)? = null,
+    settingsIcon: @Composable ((Modifier) -> Unit)? = null,
     onValueChange: (Boolean) -> Unit,
 ) {
 
@@ -76,7 +84,10 @@ fun SwitchPreference(
                 onCheckedChange = { edit(it) },
                 enabled = enabled
             )
-            settingsIcon?.invoke()
+            Spacer(modifier = Modifier.width(10.dp))
+            VerticalDivider(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.width(10.dp))
+            settingsIcon?.invoke(Modifier.size(30.dp))
         }
     }
 
@@ -90,42 +101,22 @@ fun SwitchPreference(
         )
     }
 }
-/*
+
+@Preview
 @Composable
-fun DisableBlockerDialog(
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-) {
-    AlertDialog(
-        icon = {
-            Icon(Icons.Rounded.Warning, contentDescription = null)
-        },
-        title = {
-            Text(text = "Are you sure?")
-        },
-        text = {
-            Text(text = "Are you sure you want / can allow yourself to doomscroll again?")
-        },
-        onDismissRequest = {
-            onDismissRequest()
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onConfirmation()
-                }
-            ) {
-                Text("I can handle it")
-            }
-        },
-        dismissButton = {
-            TextButton(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text("Changed my mind")
-            }
+fun SwitchPreview(){
+    SwitchPreference(
+        value = true,
+        title = "Test",
+        summary = "Test preference summary",
+        enabled = true,
+        leadingIcon = { Icon(imageVector = Icons.Rounded.Numbers, contentDescription = null)},
+        settingsIcon = {
+            Icon(
+                modifier = it,
+                imageVector = Icons.Rounded.Settings,
+                contentDescription = null
+            )
         }
-    )
-}*/
+    ) { }
+}

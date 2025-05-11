@@ -9,21 +9,21 @@ data class AppSettings(
         name = "Instagram",
         blocked = false,
         blockedStart = 0,
-        blockedEnd = 86400,
+        blockedEnd = 1439,
         blockedTimer = 0
     ),
     val youtube: App = App(
         name = "YouTube",
         blocked = false,
         blockedStart = 0,
-        blockedEnd = 86400,
+        blockedEnd = 1439,
         blockedTimer = 0
     ),
     val tiktok: App = App(
         name = "TikTok",
         blocked = false,
         blockedStart = 0,
-        blockedEnd = 86400,
+        blockedEnd = 1439,
         blockedTimer = 0
     )
 )
