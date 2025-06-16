@@ -1,4 +1,4 @@
-package com.robingebert.blokky.feature_app.navigation
+package com.robingebert.blokky.navigation
 
 sealed class Screen(val route: String) {
     data object Settings : Screen("settings")

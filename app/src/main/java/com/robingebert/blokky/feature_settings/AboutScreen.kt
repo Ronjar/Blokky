@@ -1,4 +1,4 @@
-package com.robingebert.blokky.feature_app.ui
+package com.robingebert.blokky.feature_settings
 
 import android.content.Context
 import android.content.Intent
@@ -122,7 +122,7 @@ fun AboutScreen() {
                 title = "Report Bug"
             ) {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = "mailto:".toUri()
+                    Intent.setData = "mailto:".toUri()
                     putExtra(Intent.EXTRA_EMAIL, arrayOf("blokky@robingebert.com"))
                     putExtra(Intent.EXTRA_SUBJECT, "Blokky Bug Report")
                 }

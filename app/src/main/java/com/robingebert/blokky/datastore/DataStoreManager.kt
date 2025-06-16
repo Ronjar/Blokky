@@ -2,35 +2,34 @@ package com.robingebert.blokky.datastore
 
 import android.content.Context
 import androidx.datastore.dataStore
-import com.robingebert.blokky.models.App
-import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.first
 
-val Context.dataStore by dataStore("app-settings.json", AppSettingsSerializer)
+val Context.appSettingsStore by dataStore("app_settings.json", AppSettingsSerializer)
+val Context.featureEnabledStore by dataStore("feature_enabled.json", FeatureEnabledSerializer)
 
-class DataStoreManager(
-    private val context: Context
-) {
-    val appSettings = context.dataStore.data
 
-    suspend fun updateInstagram(app: App){
-        context.dataStore.updateData {
-            appSettings.last().copy(instagram = app)
-        }
-    }
-    suspend fun updateTikTok(app: App){
-        context.dataStore.updateData {
-            appSettings.last().copy(tiktok = app)
-        }
-    }
-    suspend fun updateYoutube(app: App){
-        context.dataStore.updateData {
-            appSettings.last().copy(youtube = app)
-        }
+class DataStoreManager(private val context: Context) {
+
+    val appSettingsFlow = context.appSettingsStore.data
+    val featureEnabledFlow = context.featureEnabledStore.data
+
+    suspend fun updateAppSettings(settings: AppSettings) {
+        context.appSettingsStore.updateData { settings }
     }
 
-    suspend fun update(appSettings: AppSettings) {
-        context.dataStore.updateData {
-            appSettings
+    suspend fun updateFeatureStatus(appName: String, featureName: String?, enabled: Boolean) {
+        context.featureEnabledStore.updateData { prefs ->
+            val updatedStatuses = prefs.statuses.filterNot {
+                it.appName == appName && it.featureName == featureName
+            } + FeatureEnabledStatus(appName, featureName, enabled)
+
+            prefs.copy(statuses = updatedStatuses)
         }
+    }
+
+    suspend fun getFeatureEnabledStatus(appName: String, featureName: String?): Boolean {
+        return featureEnabledFlow.first().statuses
+            .firstOrNull { it.appName == appName && it.featureName == featureName }
+            ?.enabled ?: false
     }
 }

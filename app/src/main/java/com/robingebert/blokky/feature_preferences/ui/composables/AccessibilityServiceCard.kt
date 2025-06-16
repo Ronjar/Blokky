@@ -1,4 +1,4 @@
-package com.robingebert.blokky.feature_app.ui.composables
+package com.robingebert.blokky.feature_preferences.ui.composables
 
 import android.content.Intent
 import android.net.Uri
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding

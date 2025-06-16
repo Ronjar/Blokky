@@ -1,4 +1,4 @@
-package com.robingebert.blokky.feature_app.ui.composables
+package com.robingebert.blokky.feature_preferences.ui.composables
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable

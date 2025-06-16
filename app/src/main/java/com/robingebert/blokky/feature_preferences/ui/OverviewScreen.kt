@@ -1,4 +1,4 @@
-package com.robingebert.blokky.feature_app.ui
+package com.robingebert.blokky.feature_preferences.ui
 
 import android.content.Context
 import android.view.accessibility.AccessibilityEvent
@@ -29,21 +29,20 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.robingebert.blokky.R
-import com.robingebert.blokky.datastore.DataStoreManager
-import com.robingebert.blokky.feature_app.SettingsViewModel
-import com.robingebert.blokky.feature_app.ui.composables.AccessibilityServiceCard
-import com.robingebert.blokky.feature_app.ui.composables.EditAppBottomSheet
-import com.robingebert.blokky.feature_app.ui.composables.InstagramColoredIcon
-import com.robingebert.blokky.feature_app.ui.composables.SwitchPreference
+import com.robingebert.blokky.feature_preferences.OverviewViewModel
+import com.robingebert.blokky.feature_preferences.ui.composables.AccessibilityServiceCard
+import com.robingebert.blokky.feature_preferences.ui.composables.EditAppBottomSheet
+import com.robingebert.blokky.feature_preferences.ui.composables.InstagramColoredIcon
+import com.robingebert.blokky.feature_preferences.ui.composables.SwitchPreference
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
+fun SettingsScreen(overviewViewModel: OverviewViewModel = koinViewModel()) {
 
     val context = LocalContext.current
 
-    val appSettings by settingsViewModel.appSettings.collectAsState()
+    val appSettings by overviewViewModel.appSettings.collectAsState()
 
     var selectedApp by remember { mutableStateOf(appSettings.instagram) }
     var showSettingsDialog by remember { mutableStateOf(false) }
@@ -99,7 +98,7 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
 
                 },
             ) {
-                settingsViewModel.updateInstagram(
+                overviewViewModel.updateInstagram(
                     appSettings.instagram.copy(
                         blocked = it
                     )
@@ -129,7 +128,7 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
                     }
                 }
             ) {
-                settingsViewModel.updateYoutube(
+                overviewViewModel.updateYoutube(
                     appSettings.youtube.copy(
                         blocked = it
                     )
@@ -159,7 +158,7 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
                     }
                 }
             ){
-                settingsViewModel.updateTikTok(
+                overviewViewModel.updateTikTok(
                     appSettings.tiktok.copy(
                         blocked = it
                     )
@@ -174,9 +173,9 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
             app = selectedApp,
             onSave = {
                 when (it.name) {
-                    appSettings.instagram.name -> settingsViewModel.updateInstagram(it)
-                    appSettings.youtube.name -> settingsViewModel.updateYoutube(it)
-                    appSettings.tiktok.name -> settingsViewModel.updateTikTok(it)
+                    appSettings.instagram.name -> overviewViewModel.updateInstagram(it)
+                    appSettings.youtube.name -> overviewViewModel.updateYoutube(it)
+                    appSettings.tiktok.name -> overviewViewModel.updateTikTok(it)
                 }
                 showSettingsDialog = false
                 // Handle confirm action

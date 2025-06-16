@@ -1,4 +1,4 @@
-package com.robingebert.blokky.models
+package com.robingebert.blokky.feature_preferences.repository.models
 
 import kotlinx.serialization.Serializable
 
@@ -8,5 +8,6 @@ data class App(
     val blocked: Boolean,
     val blockedStart: Int,
     val blockedEnd: Int,
-    val blockedTimer: Int
+    val blockedTimer: Int,
+    val features: List<Feature>
 )

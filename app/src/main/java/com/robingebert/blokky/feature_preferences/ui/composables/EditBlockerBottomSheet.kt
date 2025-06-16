@@ -1,4 +1,4 @@
-package com.robingebert.blokky.feature_app.ui.composables
+package com.robingebert.blokky.feature_preferences.ui.composables
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -36,7 +36,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import com.robingebert.blokky.models.App
+import com.robingebert.blokky.feature_preferences.repository.models.App
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

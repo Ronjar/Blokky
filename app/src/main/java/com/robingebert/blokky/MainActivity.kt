@@ -22,8 +22,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.robingebert.blokky.ui.theme.BlokkyTheme
-import com.robingebert.blokky.feature_app.navigation.AppNavigation
-import com.robingebert.blokky.feature_app.navigation.Screen
+import com.robingebert.blokky.navigation.AppNavigation
+import com.robingebert.blokky.navigation.Screen
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
